@@ -4,37 +4,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Hafıza İzleri</title>
-    <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe-master.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/aframe/build/aframe-ar.js"></script>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { overflow: hidden; width: 100vw; height: 100vh; }
+      * { margin: 0; padding: 0; }
+      body { overflow: hidden; background: #000; }
     </style>
   </head>
   <body>
     <a-scene
-      mindar-image="imageTargetSrc: targets.mind;"
-      embedded
-      color-space="sRGB"
-      renderer="colorManagement: true;"
       vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false">
+      renderer="logarithmicDepthBuffer: true; precision: medium;"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; matrixCodeType: 3x3;">
 
       <a-assets>
         <img id="arImage" src="eser.jpg" crossorigin="anonymous">
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-marker
+        type="pattern"
+        url="marker.patt"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+        emitevents="true">
 
-      <a-entity mindar-image-target="targetIndex: 0">
         <a-image
           src="#arImage"
-          position="0 0 0"
-          width="1"
-          height="0.667">
+          rotation="-90 0 0"
+          position="0 0.01 0"
+          width="2.4"
+          height="1.6"
+          opacity="1">
         </a-image>
-      </a-entity>
 
+      </a-marker>
+
+      <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
